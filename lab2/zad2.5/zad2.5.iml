@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="zad2.3" />
+    <orderEntry type="module" module-name="zad2.4" />
   </component>
 </module>
