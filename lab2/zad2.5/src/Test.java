@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 import java.util.Scanner;
+
 public class Test {
+
+    private static LinkedList<Punkt3D> punkty = new LinkedList<Punkt3D>();
 
     public static void main(String[] args) {
 
@@ -32,8 +35,12 @@ public class Test {
                 case 2:
                     // Show list
                     j = 0;
+                    if (punkty.isEmpty()) {
+                        System.out.println("Brak punktow na liscie.");
+                        break;
+                    }
                     for (Punkt3D i : punkty) {
-                        System.out.println("Punkt nr " + j );
+                        System.out.println("Punkt nr " + j);
                         System.out.println("x: " + i.getX());
                         System.out.println("y: " + i.getY());
                         System.out.println("z: " + i.getZ());
@@ -74,6 +81,4 @@ public class Test {
             }
         }
     }
-
-    private static LinkedList<Punkt3D> punkty = new LinkedList<Punkt3D>();
 }
