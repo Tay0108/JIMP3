@@ -1,16 +1,12 @@
 public class Punkt2D {
-/*    Punkt2D() {
-        this.x = 0;
-        this.y = 0;
-    }*/
+
+    private double x;
+    private double y;
 
     Punkt2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
-
-    private double x;
-    private double y;
 
     public double getX() {
         return x;

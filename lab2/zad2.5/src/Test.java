@@ -1,6 +1,9 @@
 import java.util.LinkedList;
 import java.util.Scanner;
+
 public class Test {
+
+    private static LinkedList<Punkt3D> punkty = new LinkedList<Punkt3D>();
 
     public static void main(String[] args) {
 
@@ -16,14 +19,14 @@ public class Test {
             System.out.println("4. Zakoncz.");
             System.out.print("Twoj wybor: ");
 
-            decision = reader.nextInt();
+            decision = reader.nextInt(); // TODO zrobic try jak ktos wpisze cos inego niz dozwolone. to samo na double.
 
             switch (decision) {
                 case 1:
                     // Add point to list
                     System.out.println("Podaj wspolrzedne punktu: ");
                     reader = new Scanner(System.in);
-                    x = reader.nextDouble();
+                    x = reader.nextDouble(); // TODO zmienic na nextLine i parsowac na double, bo nextDouble bierze znak konca linii
                     y = reader.nextDouble();
                     z = reader.nextDouble();
                     Punkt3D point = new Punkt3D(x, y, z);
@@ -32,8 +35,12 @@ public class Test {
                 case 2:
                     // Show list
                     j = 0;
+                    if (punkty.isEmpty()) {
+                        System.out.println("Brak punktow na liscie.");
+                        break;
+                    }
                     for (Punkt3D i : punkty) {
-                        System.out.println("Punkt nr " + j );
+                        System.out.println("Punkt nr " + j);
                         System.out.println("x: " + i.getX());
                         System.out.println("y: " + i.getY());
                         System.out.println("z: " + i.getZ());
@@ -74,6 +81,4 @@ public class Test {
             }
         }
     }
-
-    private static LinkedList<Punkt3D> punkty = new LinkedList<Punkt3D>();
 }
