@@ -32,7 +32,7 @@ public class PrimeNumbers {
      */
     public void showPrimeNumbers() {
         for (int i = 0; i < biggestNumber; i++) {
-            if (primeNumbers[i])
+            if(primeNumbers[i])
                 System.out.println(i);
         }
     }
