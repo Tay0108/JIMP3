@@ -19,14 +19,14 @@ public class Test {
             System.out.println("4. Zakoncz.");
             System.out.print("Twoj wybor: ");
 
-            decision = reader.nextInt();
+            decision = reader.nextInt(); // TODO zrobic try jak ktos wpisze cos inego niz dozwolone. to samo na double.
 
             switch (decision) {
                 case 1:
                     // Add point to list
                     System.out.println("Podaj wspolrzedne punktu: ");
                     reader = new Scanner(System.in);
-                    x = reader.nextDouble();
+                    x = reader.nextDouble(); // TODO zmienic na nextLine i parsowac na double, bo nextDouble bierze znak konca linii
                     y = reader.nextDouble();
                     z = reader.nextDouble();
                     Punkt3D point = new Punkt3D(x, y, z);
