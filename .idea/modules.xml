@@ -3,18 +3,24 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JIMP3.iml" filepath="$PROJECT_DIR$/JIMP3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.1/zad1.1.iml" filepath="$PROJECT_DIR$/lab1/zad1.1/zad1.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.2/zad1.2.iml" filepath="$PROJECT_DIR$/lab1/zad1.2/zad1.2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.3/zad1.3.iml" filepath="$PROJECT_DIR$/lab1/zad1.3/zad1.3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.4/zad1.4.iml" filepath="$PROJECT_DIR$/lab1/zad1.4/zad1.4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.5/zad1.5.iml" filepath="$PROJECT_DIR$/lab1/zad1.5/zad1.5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.6/zad1.6.iml" filepath="$PROJECT_DIR$/lab1/zad1.6/zad1.6.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab1/zad1.7/zad1.7.iml" filepath="$PROJECT_DIR$/lab1/zad1.7/zad1.7.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab2/zad2.1/zad2.1.iml" filepath="$PROJECT_DIR$/lab2/zad2.1/zad2.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab2/zad2.2/zad2.2.iml" filepath="$PROJECT_DIR$/lab2/zad2.2/zad2.2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab2/zad2.3/zad2.3.iml" filepath="$PROJECT_DIR$/lab2/zad2.3/zad2.3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab2/zad2.4/zad2.4.iml" filepath="$PROJECT_DIR$/lab2/zad2.4/zad2.4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lab2/zad2.5/zad2.5.iml" filepath="$PROJECT_DIR$/lab2/zad2.5/zad2.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.1/zad1.1.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.1/zad1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.2/zad1.2.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.2/zad1.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.3/zad1.3.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.3/zad1.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.4/zad1.4.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.4/zad1.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.5/zad1.5.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.5/zad1.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.6/zad1.6.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.6/zad1.6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab1_m/zad1.7/zad1.7.iml" filepath="$PROJECT_DIR$/lab1_m/zad1.7/zad1.7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab2_m/zad2.1/zad2.1.iml" filepath="$PROJECT_DIR$/lab2_m/zad2.1/zad2.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab2_m/zad2.2/zad2.2.iml" filepath="$PROJECT_DIR$/lab2_m/zad2.2/zad2.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab2_m/zad2.3/zad2.3.iml" filepath="$PROJECT_DIR$/lab2_m/zad2.3/zad2.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab2_m/zad2.4/zad2.4.iml" filepath="$PROJECT_DIR$/lab2_m/zad2.4/zad2.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab2_m/zad2.5/zad2.5.iml" filepath="$PROJECT_DIR$/lab2_m/zad2.5/zad2.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab3_m/zad3.1/zad3.1.iml" filepath="$PROJECT_DIR$/lab3_m/zad3.1/zad3.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab3_m/zad3.4/zad3.4.iml" filepath="$PROJECT_DIR$/lab3_m/zad3.4/zad3.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab3_m/zad3.5/zad3.5.iml" filepath="$PROJECT_DIR$/lab3_m/zad3.5/zad3.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab4_m/zad4.2/zad4.2.iml" filepath="$PROJECT_DIR$/lab4_m/zad4.2/zad4.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab4_m/zad4.4/zad4.4.iml" filepath="$PROJECT_DIR$/lab4_m/zad4.4/zad4.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab5_m/zad5.3/zad5.3.iml" filepath="$PROJECT_DIR$/lab5_m/zad5.3/zad5.3.iml" />
     </modules>
   </component>
 </project>
