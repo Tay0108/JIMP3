@@ -12,7 +12,7 @@ public class Subtitles {
 
         try {
             microDvd.delay(inputFile, outputFile, delay, framerate);
-        } catch (InvalidSubtitleLineExecption e) {
+        } catch (InvalidSubtitleLineException e) {
             System.out.println("Niepoprawny format w lini:" + e.getNumberOfLine());
         } catch (InvalidFrameNumbersExecption e) {
             System.out.println("Niepoprawne oznaczenie klatek w linii: " + e.getNumberOfLine());

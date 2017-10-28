@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class MicroDvd {
 
     public void delay(final String in, final String out, int delay, int fps)
-            throws IOException, InvalidSubtitleLineExecption, InvalidFrameNumbersExecption {
+            throws IOException, InvalidSubtitleLineException, InvalidFrameNumbersExecption {
 
         FileReader fileReader = new FileReader(in);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -48,7 +48,7 @@ public class MicroDvd {
                     textLineOut = "{" + startFrame + "}{" + endFrame + "}" + matcher.group(3) + "\n";
                     bufferedWriter.write(textLineOut);
                 } else {
-                    throw new InvalidSubtitleLineExecption(numberOfLine);
+                    throw new InvalidSubtitleLineException(numberOfLine);
                 }
             }
         } finally {

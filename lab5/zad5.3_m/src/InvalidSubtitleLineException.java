@@ -1,7 +1,7 @@
-public class InvalidSubtitleLineExecption extends Exception{
+public class InvalidSubtitleLineException extends Exception{
     private int numberOfLine;
 
-    public InvalidSubtitleLineExecption(int numberOfLine) {
+    public InvalidSubtitleLineException(int numberOfLine) {
         this.numberOfLine = numberOfLine;
     }
 
