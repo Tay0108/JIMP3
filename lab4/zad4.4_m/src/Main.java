@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String inputFile = args[0];
         String outputFile = args[1];
@@ -54,6 +54,8 @@ public class Main {
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("BLAD: Niepoprawny wybor akcji.");
+            } catch (IOException e) {
+                System.out.println("Plik nie istnieje");
             }
         }
     }

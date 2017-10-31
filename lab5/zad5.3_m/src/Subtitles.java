@@ -1,24 +1,21 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Subtitles {
     public static void main(String[] args) throws IOException {
 
-        String inputFile = "C:\\Users\\ProBook\\IdeaProjects\\JIMP3\\lab4\\zad4.4\\src\\polskie,txt";
+        String inputFile = args[0];
+        String outputFile = args[1];
+        int delay = Integer.parseInt(args[2]);
+        int framerate = Integer.parseInt(args[3]);
 
-        FileReader fileReader = new FileReader(inputFile);
-        BufferedReader bufferedReader= new BufferedReader(fileReader);
+        MicroDvd microDvd = new MicroDvd();
 
         try {
-            String textLine = bufferedReader.readLine();
-
-            do {
-                System.out.println(textLine);
-                textLine = bufferedReader.readLine();
-            } while (textLine != null);
-        } finally {
-            bufferedReader.close();
+            microDvd.delay(inputFile, outputFile, delay, framerate);
+        } catch (InvalidSubtitleLineException e) {
+            System.out.println("Niepoprawny format w lini:" + e.getNumberOfLine());
+        } catch (InvalidFrameNumbersExecption e) {
+            System.out.println("Niepoprawne oznaczenie klatek w linii: " + e.getNumberOfLine());
         }
     }
 }
