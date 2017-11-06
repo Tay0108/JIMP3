@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,8 +77,6 @@ public class Photos {
 
         Photos photos = new Photos();
 
-
-
         try {
             photos.sort(args[0]); // path as program parameter
         } catch (IndicoException e) {
@@ -90,8 +89,10 @@ public class Photos {
             System.out.println("There are no images in this directory");
         } catch(FileNotFoundException e) {
             System.out.println("File not found");
+        } catch(UnknownHostException e) {
+            System.out.println("Could not connect to the server");
         } catch(IOException e) {
-            System.out.println("No internet connection");
+            System.out.println("IO Exception");
         }
     }
 }
