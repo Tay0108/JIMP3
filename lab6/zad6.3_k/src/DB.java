@@ -1,6 +1,8 @@
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DB {
     private Connection conn = null;
@@ -13,15 +15,12 @@ public class DB {
         conn =
                 DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl:3306/kosecki?useLegacyDatetimeCode=false&serverTimezone=Europe/Warsaw",
                         "kosecki", "Hb3TbCxcX4ooohMD");
-
     }
 
-    public List<Book> getBooks() {
+    public List<Book> getBooks() throws SQLException {
 
         List<Book> books = new ArrayList<Book>();
 
-        try {
-            //connect();
             stmt = conn.createStatement();
             String sqlQuery = "SELECT * FROM books";
 
@@ -31,43 +30,13 @@ public class DB {
                 books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
             }
 
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } finally { // closing db connection
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    System.out.println("rs.close()");
-                }
-                rs = null;
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    System.out.println("stmt.close()");
-                }
-                stmt = null;
-            }
-            /*if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    System.out.println("conn.close()");
-                }
-            }*/
-        }
         return books;
     }
 
-    public Book getBookByIsbn(Long isbn) { // non-modyfing, unique
-        //connect();
+    public Book getBookByIsbn(Long isbn) throws SQLException { // non-modyfing, unique
         Book book = new Book();
         book.setIsbn(isbn);
-        try {
+
             stmt = conn.createStatement();
             String sqlQuery = "SELECT * FROM books WHERE isbn ='" + isbn + "'";
 
@@ -79,19 +48,12 @@ public class DB {
                 book.setYear(rs.getInt(4));
             }
 
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        }
         return book;
     }
 
-    public List<Book> getBooksByAuthor(String author) { // non-modyfing, can have multiple books
-        //connect();
+    public List<Book> getBooksByAuthor(String author) throws SQLException { // non-modyfing, can have multiple books
         List<Book> books = new ArrayList<Book>();
 
-        try {
             stmt = conn.createStatement();
             String sqlQuery = "SELECT * FROM books WHERE author ='" + author + "'";
 
@@ -101,90 +63,34 @@ public class DB {
                 books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
             }
 
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        }
         return books;
     }
 
-    public void deleteBook(Long isbn) {
-        //connect();
+    public void deleteBook(Long isbn) throws SQLException {
         String sqlQuery = "DELETE FROM books WHERE isbn ='" + isbn + "'";
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sqlQuery);
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } finally {
-
-            if (rs != null) { // TODO: zapytac, czy tu i wyzej mozna zamykanie zalatwic jednym try'em
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                } // ignoring
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                }
-            }
-            /*if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }*/
-        }
+        stmt = conn.createStatement();
+        stmt.executeUpdate(sqlQuery);
     }
 
-    public void deleteBook(String author) {
-        //connect();
+    public void deleteBook(String author) throws SQLException {
         String sqlQuery = "DELETE FROM books WHERE author ='" + author + "'";
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sqlQuery);
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } finally {
 
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                }
-            }
-            /*if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }*/
-        }
+        stmt = conn.createStatement();
+        stmt.executeUpdate(sqlQuery);
+
     }
 
     public static void main(String[] args) {
         DB db = new DB();
 
         int connections = 0;
+        int attempts = 3;
 
-        while (connections < 3) {
+        while (connections < attempts) {
             try {
                 db.connect();
+                connections = attempts;
 
-                connections = 3;
                 List<Book> books = db.getBooks();
 
                 for (Book i : books) {
@@ -211,10 +117,33 @@ public class DB {
 
                 System.out.println(db.getBookByIsbn(1234567891234L).getTitle());
 
+
             } catch (SQLException e) {
-                System.out.println("Couldn't connect to database.");
+                System.out.println("Couldn't connect to database. Retrying in 10s");
+                try {
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException ex) {
+                    System.out.println("Timer interupted");
+                }
                 connections++;
+
             } finally {
+                if (db.rs != null) {
+                    try {
+                        db.rs.close();
+                    } catch (SQLException e) {
+                        System.out.println("rs.close()");
+                    }
+                    db.rs = null;
+                }
+                if (db.stmt != null) {
+                    try {
+                        db.stmt.close();
+                    } catch (SQLException e) {
+                        System.out.println("stmt.close()");
+                    }
+                    db.stmt = null;
+                }
                 if (db.conn != null) {
                     try {
                         db.conn.close();
@@ -223,6 +152,7 @@ public class DB {
                     }
                 }
             }
+            System.out.println("Connection closed.");
         }
     }
 }
