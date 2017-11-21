@@ -7,22 +7,13 @@ public class DB {
     private Statement stmt = null;
     private ResultSet rs = null;
 
-    public void connect() {
-        try {
-            // Class.forName("com.mysql.jdbc.Driver").newInstance(); // loading JDBC driver (unnesessary in newer versions)
+    public void connect() throws SQLException {
+        // Class.forName("com.mysql.jdbc.Driver").newInstance(); // loading JDBC driver (unnesessary in newer versions)
 
-            conn =
-                    DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl:3306/kosecki?useLegacyDatetimeCode=false&serverTimezone=Europe/Warsaw",
-                            "kosecki", "Hb3TbCxcX4ooohMD");
+        conn =
+                DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl:3306/kosecki?useLegacyDatetimeCode=false&serverTimezone=Europe/Warsaw",
+                        "kosecki", "Hb3TbCxcX4ooohMD");
 
-
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public List<Book> getBooks() {
@@ -30,7 +21,7 @@ public class DB {
         List<Book> books = new ArrayList<Book>();
 
         try {
-            connect();
+            //connect();
             stmt = conn.createStatement();
             String sqlQuery = "SELECT * FROM books";
 
@@ -61,19 +52,19 @@ public class DB {
                 }
                 stmt = null;
             }
-            if (conn != null) {
+            /*if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
                     System.out.println("conn.close()");
                 }
-            }
+            }*/
         }
         return books;
     }
 
     public Book getBookByIsbn(Long isbn) { // non-modyfing, unique
-        connect();
+        //connect();
         Book book = new Book();
         book.setIsbn(isbn);
         try {
@@ -97,7 +88,7 @@ public class DB {
     }
 
     public List<Book> getBooksByAuthor(String author) { // non-modyfing, can have multiple books
-        connect();
+        //connect();
         List<Book> books = new ArrayList<Book>();
 
         try {
@@ -119,7 +110,7 @@ public class DB {
     }
 
     public void deleteBook(Long isbn) {
-        connect();
+        //connect();
         String sqlQuery = "DELETE FROM books WHERE isbn ='" + isbn + "'";
         try {
             stmt = conn.createStatement();
@@ -133,23 +124,26 @@ public class DB {
             if (rs != null) { // TODO: zapytac, czy tu i wyzej mozna zamykanie zalatwic jednym try'em
                 try {
                     rs.close();
-                } catch (SQLException e) {} // ignoring
+                } catch (SQLException e) {
+                } // ignoring
             }
-            if(stmt != null) {
+            if (stmt != null) {
                 try {
                     stmt.close();
-                } catch(SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
-            if(conn != null) {
+            /*if (conn != null) {
                 try {
                     conn.close();
-                } catch(SQLException e) {}
-            }
+                } catch (SQLException e) {
+                }
+            }*/
         }
     }
 
     public void deleteBook(String author) {
-        connect();
+        //connect();
         String sqlQuery = "DELETE FROM books WHERE author ='" + author + "'";
         try {
             stmt = conn.createStatement();
@@ -163,48 +157,72 @@ public class DB {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
-            if(stmt != null) {
+            if (stmt != null) {
                 try {
                     stmt.close();
-                } catch(SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
-            if(conn != null) {
+            /*if (conn != null) {
                 try {
                     conn.close();
-                } catch(SQLException e) {}
-            }
+                } catch (SQLException e) {
+                }
+            }*/
         }
     }
 
     public static void main(String[] args) {
         DB db = new DB();
 
-        List<Book> books = db.getBooks();
+        int connections = 0;
 
-        for (Book i : books) {
-            System.out.println("ISBN: " + i.getIsbn());
-            System.out.println("Title: " + i.getTitle());
-            System.out.println("Author: " + i.getAuthor());
-            System.out.println("Year: " + i.getYear());
-            System.out.println();
+        while (connections < 3) {
+            try {
+                db.connect();
+
+                connections = 3;
+                List<Book> books = db.getBooks();
+
+                for (Book i : books) {
+                    System.out.println("ISBN: " + i.getIsbn());
+                    System.out.println("Title: " + i.getTitle());
+                    System.out.println("Author: " + i.getAuthor());
+                    System.out.println("Year: " + i.getYear());
+                    System.out.println();
+                }
+                System.out.println("Book by isbn test: ");
+                System.out.println(db.getBookByIsbn(1234567891234L).getTitle());
+                System.out.println();
+
+                System.out.println("Books by author test: ");
+
+                List<Book> authorBooks = db.getBooksByAuthor("Antoni Burgess");
+
+                for (Book i : authorBooks) {
+                    System.out.println(i.getTitle());
+                }
+
+                System.out.println("Deleting: ");
+                db.deleteBook("Ernest Hemingway");
+
+                System.out.println(db.getBookByIsbn(1234567891234L).getTitle());
+
+            } catch (SQLException e) {
+                System.out.println("Couldn't connect to database.");
+                connections++;
+            } finally {
+                if (db.conn != null) {
+                    try {
+                        db.conn.close();
+                    } catch (SQLException e) {
+                        System.out.println("conn.close()");
+                    }
+                }
+            }
         }
-        System.out.println("Book by isbn test: ");
-        System.out.println(db.getBookByIsbn(1234567891234L).getTitle());
-        System.out.println();
-
-        System.out.println("Books by author test: ");
-
-        List<Book> authorBooks = db.getBooksByAuthor("Ernest Hemingway");
-
-        for (Book i : authorBooks) {
-            System.out.println(i.getTitle());
-        }
-
-        System.out.println("Deleting: ");
-        db.deleteBook("Ernest Hemingway");
-
-        System.out.println(db.getBookByIsbn(1234567891234L).getTitle());
     }
 }
