@@ -21,14 +21,14 @@ public class DB {
 
         List<Book> books = new ArrayList<Book>();
 
-            stmt = conn.createStatement();
-            String sqlQuery = "SELECT * FROM books";
+        stmt = conn.createStatement();
+        String sqlQuery = "SELECT * FROM books";
 
-            ResultSet rs = stmt.executeQuery(sqlQuery); // execute query - not modyfing data in DB
+        ResultSet rs = stmt.executeQuery(sqlQuery); // execute query - not modyfing data in DB
 
-            while (rs.next()) { // while next row exists
-                books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
-            }
+        while (rs.next()) { // while next row exists
+            books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+        }
 
         return books;
     }
@@ -37,16 +37,16 @@ public class DB {
         Book book = new Book();
         book.setIsbn(isbn);
 
-            stmt = conn.createStatement();
-            String sqlQuery = "SELECT * FROM books WHERE isbn ='" + isbn + "'";
+        stmt = conn.createStatement();
+        String sqlQuery = "SELECT * FROM books WHERE isbn ='" + isbn + "'";
 
-            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ResultSet rs = stmt.executeQuery(sqlQuery);
 
-            while (rs.next()) {
-                book.setTitle(rs.getString(2));
-                book.setAuthor(rs.getString(3));
-                book.setYear(rs.getInt(4));
-            }
+        while (rs.next()) {
+            book.setTitle(rs.getString(2));
+            book.setAuthor(rs.getString(3));
+            book.setYear(rs.getInt(4));
+        }
 
         return book;
     }
@@ -54,14 +54,14 @@ public class DB {
     public List<Book> getBooksByAuthor(String author) throws SQLException { // non-modyfing, can have multiple books
         List<Book> books = new ArrayList<Book>();
 
-            stmt = conn.createStatement();
-            String sqlQuery = "SELECT * FROM books WHERE author ='" + author + "'";
+        stmt = conn.createStatement();
+        String sqlQuery = "SELECT * FROM books WHERE author ='" + author + "'";
 
-            ResultSet rs = stmt.executeQuery(sqlQuery);
+        rs = stmt.executeQuery(sqlQuery);
 
-            while (rs.next()) {
-                books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
-            }
+        while (rs.next()) {
+            books.add(new Book(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+        }
 
         return books;
     }
@@ -74,7 +74,6 @@ public class DB {
 
     public void deleteBook(String author) throws SQLException {
         String sqlQuery = "DELETE FROM books WHERE author ='" + author + "'";
-
         stmt = conn.createStatement();
         stmt.executeUpdate(sqlQuery);
 
