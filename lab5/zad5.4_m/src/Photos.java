@@ -1,21 +1,37 @@
 import io.indico.Indico;
 import io.indico.api.results.BatchIndicoResult;
 import io.indico.api.utils.IndicoException;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class Photos {
+public class Photos extends Application {
+
+    private File photosFolder;
+    private File[] photosFiles;
+
+    public void loadPhotos(File directory) {
+        photosFiles = directory.listFiles();
+    }
 
     public void sort(String photoPath)
             throws IndicoException, NoImagesInDirectoryException, IOException,
             CannotCreateDirectoryException, FileNotMovedException {
 
         Indico indico = new Indico("1026d4b1cea8318b801f45df22bcb2b5");
-        File photosFolder = new File(photoPath);
-        File[] photosFiles = photosFolder.listFiles();
 
         if (photosFiles == null) {
             throw new FileNotFoundException();
@@ -87,6 +103,7 @@ public class Photos {
         }
     }
 
+/*
     public static void main(String[] args) {
 
         Photos photos = new Photos();
@@ -108,5 +125,56 @@ public class Photos {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+*/
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(final Stage stage) {
+        stage.setTitle("Photos");
+
+        /*
+        buttonBrowse - button to choose directory containing photos
+         */
+
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select directory with photos to sort");
+        directoryChooser.setInitialDirectory(new File("C:\\Users\\ProBook\\Downloads"));
+
+        Button buttonBrowse = new Button();
+        buttonBrowse.setText("Browse...");
+
+        buttonBrowse.setOnAction(new EventHandler<>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                File directory = directoryChooser.showDialog(stage);
+                if (directory != null) {
+                    photosFolder = directory;
+                    loadPhotos(directory);
+                }
+            }
+        });
+
+        /*
+        now we create listViewer
+         */
+
+        ListView<String> list = new ListView<String>();
+        ObservableList<String> items = FXCollections.observableArrayList (
+                "Single", "Double", "Suite", "Family App");
+        list.setItems(items);
+
+
+
+        StackPane root = new StackPane();
+        root.getChildren().add(buttonBrowse);
+        root.getChildren().add(list);
+        stage.setScene(new Scene(root, 300, 250));
+        stage.show();
     }
 }

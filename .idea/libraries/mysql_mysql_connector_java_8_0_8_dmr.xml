@@ -2,7 +2,7 @@
   <library name="mysql:mysql-connector-java:8.0.8-dmr" type="repository">
     <properties maven-id="mysql:mysql-connector-java:8.0.8-dmr" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.8-dmr.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.8-dmr/mysql-connector-java-8.0.8-dmr.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
