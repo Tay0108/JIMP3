@@ -13,7 +13,7 @@ public class DB {
 
             conn =
                     DriverManager.getConnection("jdbc:mysql://mysql.agh.edu.pl:3306/kosecki?useLegacyDatetimeCode=false&serverTimezone=Europe/Warsaw",
-                            "kosecki", "Hb3TbCxcX4ooohMD");
+                            "username", "password");
 
 
         } catch (SQLException e) {
